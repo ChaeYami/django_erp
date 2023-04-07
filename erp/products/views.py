@@ -87,4 +87,25 @@ def inbound_create(request):
 #             return render(request, 'products/inbound_create.html', {'product_list': product_list, 'form': form})
 
 
-
+@login_required
+def outbound_create(request):
+    if request.method == 'GET':
+        user = request.user.is_authenticated
+        if user:
+            
+            product_list = Product.objects.all()
+            return render(request, 'products/outbound_create.html',{'product_list': product_list})
+        else:
+            return redirect('/sign-in')
+    elif request.method == 'POST':
+        product_code = request.POST.get('product_code', '')
+        outbound = request.POST.get('outbound', '')
+        if product_code == '' or outbound == '':
+            return render(request, 'products/inventory.html', {'error': 'Please fill all the fields'})
+        else:
+            product = Product.objects.get(product_code=product_code)
+            
+            product.stock -= int(outbound) # 재고량 감소
+            product.save()
+            return redirect('/inventory')
+        
