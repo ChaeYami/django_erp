@@ -26,22 +26,23 @@
             <li class = "inven_li"> | 이름</li>
             <li class = "inven_li"> | 사이즈</li>
             <li class = "inven_li"> | 가격</li>
-            <li class = "inven_li"> | 재고량</li>
             <li class = "inven_li"> | 설명</li>
             <li class = "inven_li"> | 입고 날짜</li>
             <li class = "inven_li"> | 출고 날짜</li>
+            <li class = "inven_li"> | 재고량</li>
         </ul>
         {% for cat in product_list %}
-            <ul id="inven_ul">
-                <li class = "inven_li">{{ cat.product_code }}</li>
-                <li class = "inven_li"> | {{ cat.product_name }}</li>
-                <li class = "inven_li"> | {{ cat.product_size }}</li>
-                <li class = "inven_li"> | {{ cat.product_price }}원</li>
-                <li class = "inven_li"> | {{ cat.stock }}</li>
-                <li class = "inven_li"> | {{ cat.product_desc }}</li>
-                <li class = "inven_li"> | {{ cat.inbound_date }}</li>
-                <li class = "inven_li"> | {{ cat.outbound_date }}</li>
-            </ul>
+                <ul id="inven_ul">
+                    <li class = "inven_li">{{ cat.product.product_code }}</li>
+                    <li class = "inven_li"> | {{ cat.product.product_name }}</li>
+                    <li class = "inven_li"> | {{ cat.product.product_size }}</li>
+                    <li class = "inven_li"> | {{ cat.product.product_price }}원</li>
+                    <li class = "inven_li"> | {{ cat.product.product_desc }}</li>
+                    <li class = "inven_li"> | {{ cat.product.inbound_date }}</li>
+                    <li class = "inven_li"> | {{ cat.product.outbound_date }}</li>
+                    <li class = "inven_li"> | {{ cat.stock }}</li>
+
+                </ul>
         {% endfor %}
     </table>
 {% endblock %}

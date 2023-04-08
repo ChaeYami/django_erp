@@ -20,7 +20,7 @@ def inventory_show(request):
     if request.method == 'GET':
         user = request.user.is_authenticated
         if user:
-            product_list = Product.objects.all()
+            product_list = Inventory.objects.all()
         
             return render(request, 'products/inventory.html', {'product_list': product_list})
         else:
@@ -33,7 +33,7 @@ def product_create(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
-            product_list = Product.objects.all()
+            product_list = Inventory.objects.all()
             return render(request, 'products/inventory.html', {'product_list': product_list})
     else:
         form = ProductForm()
@@ -60,7 +60,6 @@ def inbound_create(request):
             inventory = Inventory.objects.get(product_code=product_code)
             
             # print(type(Inventory.stock))
-            # print(type(inbound))
             inventory.stock = inventory.stock+inbound # 재고량 증가
             inventory.save()
             
