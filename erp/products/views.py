@@ -58,9 +58,10 @@ def inbound_create(request):
         else:
             # product = Product.objects.get(product_code=product_code)
             inventory = Inventory.objects.get(product_code=product_code)
-            print(type(Inventory.stock))
-            print(type(inbound))
-            Inventory.stock = Inventory.stock+inbound # 재고량 증가
+            
+            # print(type(Inventory.stock))
+            # print(type(inbound))
+            inventory.stock = inventory.stock+inbound # 재고량 증가
             inventory.save()
             
             

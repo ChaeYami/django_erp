@@ -40,7 +40,7 @@ class Inbound(models.Model):
     product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inbound_products',to_field='product_code',default=0)
     inbound_quantity = models.IntegerField(blank = True, default=0)
     inbound_date = models.DateTimeField(auto_now_add=True)
-
+    
 
 class Outbound(models.Model):
     product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='outbound_products',to_field='product_code',default=0)
