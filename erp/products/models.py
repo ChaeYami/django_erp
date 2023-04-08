@@ -20,7 +20,6 @@ class Product(models.Model):
     product_size = models.CharField(choices=product_sizes, max_length=1)
     product_price = models.CharField(max_length=10)
     product_desc = models.TextField()
-    stock = models.IntegerField(default=0)
 
     def __str__(self):
         return self.product_code
@@ -34,16 +33,17 @@ class Product(models.Model):
 
 class Inventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
+    stock = models.IntegerField(blank = True,default=0)
+    
     
 class Inbound(Product):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inbound_products',default=0)
+    inbound_product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inbound_products',to_field='product_code',default=0)
     inbound_quantity = models.IntegerField(blank = True, default=0)
     inbound_date = models.DateTimeField(auto_now_add=True)
 
 
 class Outbound(Product):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='outbound_products',default=0)
+    inbound_product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='outbound_products',to_field='product_code',default=0)
     outbound_quantity = models.IntegerField(blank = True, default=0)
     outbound_date = models.DateTimeField(auto_now_add=True)
 

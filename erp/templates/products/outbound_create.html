@@ -8,7 +8,7 @@
     <div class="container">
         <div class="wrap">
             <h2 class="title-center"> 출고 상품 등록 </h2>
-            <form class="form-area" method="post" action="{% url 'inbound-create' %}">
+            <form class="form-area" method="post" action="{% url 'outbound-create' %}">
                 {% csrf_token %}
                 <div class="form-group mt-2 mb-2">
                     <label for="product_code">상품 코드</label>

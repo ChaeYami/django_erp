@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Inbound, Outbound
+from .models import Inventory, Product, Inbound, Outbound
 from django.http import HttpResponse
 from django.contrib import auth  # 사용자 auth 기능(비밀번호 체크, 로그인 기능 해결)
 from django.contrib.auth.decorators import login_required
@@ -47,7 +47,6 @@ def inbound_create(request):
     if request.method == 'GET':
         user = request.user.is_authenticated
         if user:
-            
             product_list = Product.objects.all()
             return render(request, 'products/inbound_create.html',{'product_list': product_list})
         else:
@@ -60,33 +59,10 @@ def inbound_create(request):
         else:
             product = Product.objects.get(product_code=product_code)
             
-            product.stock += int(inbound) # 재고량 증가
+            Inventory.stock += int(inbound) # 재고량 증가
             product.save()
             return redirect('/inventory')
         
-# @login_required
-# def inbound_create(request):
-#     if request.method == 'GET':
-#         product_list = Product.objects.all()
-#         form = InboundForm()
-#         return render(request, 'products/inbound_create.html', {'product_list': product_list, 'form': form})
-
-#     elif request.method == 'POST':
-#         form = InboundForm(request.POST)
-#         if form.is_valid():
-#             product_code = form.cleaned_data['product_code']
-#             inbound_quantity = form.cleaned_data['product_quantity']
-#             product = Product.objects.get(product_code=product_code)
-#             product.product_quantity += int(inbound_quantity)
-#             product.save()
-#             product_list = Product.objects.all()
-#             inbound_date = Inbound.objects.inbound_date
-
-#             return render(request, 'products/inventory.html', {'product_list': product_list, 'inbound_date': inbound_date})
-#         else:
-#             product_list = Product.objects.all()
-#             return render(request, 'products/inbound_create.html', {'product_list': product_list, 'form': form})
-
 
 @login_required
 def outbound_create(request):
@@ -106,7 +82,7 @@ def outbound_create(request):
         else:
             product = Product.objects.get(product_code=product_code)
             
-            product.stock -= int(outbound) # 재고량 감소
+            Inventory.stock -= int(outbound) # 재고량 감소
             product.save()
             return redirect('/inventory')
         

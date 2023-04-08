@@ -4,42 +4,43 @@
 {% endblock %}
 {% block content %}
 <style>
-    ul{
+    #inven_ul{
     list-style: none;
     margin: 0;
     
     padding: 0;
     overflow: hidden;
     }
-    li{
+    .inven_li{
+    list-style: none;
     float: left;
-    width:100px;
+    width:120px;
     }
     </style>
     <div class="inventory_title">
         <h4> 재고 현황 </h4>
     </div>
     <table>
-        <ul style = "font-weight : bold;">
-            <li>코드</li>
-            <li> | 이름</li>
-            <li> | 사이즈</li>
-            <li> | 가격</li>
-            <li> | 재고량</li>
-            <li> | 설명</li>
-            <li> | 입고 날짜</li>
-            <li> | 출고 날짜</li>
+        <ul id="inven_ul" style = "font-weight : bold;">
+            <li class = "inven_li">코드</li>
+            <li class = "inven_li"> | 이름</li>
+            <li class = "inven_li"> | 사이즈</li>
+            <li class = "inven_li"> | 가격</li>
+            <li class = "inven_li"> | 재고량</li>
+            <li class = "inven_li"> | 설명</li>
+            <li class = "inven_li"> | 입고 날짜</li>
+            <li class = "inven_li"> | 출고 날짜</li>
         </ul>
         {% for cat in product_list %}
-            <ul>
-                <li>{{ cat.product_code }}</li>
-                <li> | {{ cat.product_name }}</li>
-                <li> | {{ cat.product_size }}</li>
-                <li> | {{ cat.product_price }}원</li>
-                <li> | {{ cat.stock }}</li>
-                <li> | {{ cat.product_desc }}</li>
-                <li> | {{ cat.inbound_date }}</li>
-                <li> | {{ cat.outbound_date }}</li>
+            <ul id="inven_ul">
+                <li class = "inven_li">{{ cat.product_code }}</li>
+                <li class = "inven_li"> | {{ cat.product_name }}</li>
+                <li class = "inven_li"> | {{ cat.product_size }}</li>
+                <li class = "inven_li"> | {{ cat.product_price }}원</li>
+                <li class = "inven_li"> | {{ cat.stock }}</li>
+                <li class = "inven_li"> | {{ cat.product_desc }}</li>
+                <li class = "inven_li"> | {{ cat.inbound_date }}</li>
+                <li class = "inven_li"> | {{ cat.outbound_date }}</li>
             </ul>
         {% endfor %}
     </table>
