@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import Inventory, Product, Inbound, Outbound
-from django.http import HttpResponse
 from django.contrib import auth  # 사용자 auth 기능(비밀번호 체크, 로그인 기능 해결)
 from django.contrib.auth.decorators import login_required
 from django.forms import ValidationError
@@ -56,13 +55,11 @@ def inbound_create(request):
         if product_code == '' or inbound == '':
             return render(request, 'products/inventory.html', {'error': 'Please fill all the fields'})
         else:
-            # product = Product.objects.get(product_code=product_code)
+            
             inventory = Inventory.objects.get(product_code=product_code)
             
-            # print(type(Inventory.stock))
-            inventory.stock = inventory.stock+inbound # 재고량 증가
+            inventory.stock += inbound # 재고량 증가
             inventory.save()
-            
             
             return redirect('/inventory')
         
@@ -83,9 +80,10 @@ def outbound_create(request):
         if product_code == '' or outbound == '':
             return render(request, 'products/inventory.html', {'error': 'Please fill all the fields'})
         else:
-            product = Product.objects.get(product_code=product_code)
+            inventory = Inventory.objects.get(product_code=product_code)
             
-            Inventory.stock -= int(outbound) # 재고량 감소
-            product.save()
+            inventory.stock -= int(outbound) # 재고량 감소
+            inventory.save()
+            
             return redirect('/inventory')
         

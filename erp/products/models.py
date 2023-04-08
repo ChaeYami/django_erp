@@ -10,14 +10,16 @@ class Product(models.Model):
         db_table = "my_product"
 
     product_code = models.CharField(max_length=10, unique=True)
-    product_name = models.CharField(max_length=15)
+    product_name = models.CharField(max_length=20)
     product_sizes = (
+        ('XS', 'X-Small'),
         ('S', 'Small'),
         ('M', 'Medium'),
         ('L', 'Large'),
+        ('XL', 'X-Large'),
         ('F', 'Free'),
     )
-    product_size = models.CharField(choices=product_sizes, max_length=1)
+    product_size = models.CharField(choices=product_sizes, max_length=2)
     product_price = models.CharField(max_length=10)
     product_desc = models.TextField()
     stock = models.IntegerField(default=0)
@@ -30,7 +32,7 @@ class Product(models.Model):
         if not self.id:  # 생성시 id가 없음 -> 생성동작
             super().save(*args, **kwargs)
             Inventory.objects.create(product=self,product_code =self, stock=0)
-            # Inventory.product_code = self.product_code
+            self.product_price = f"{int(self.product_price):,d}"
         else:
             super().save(*args, **kwargs)
 
