@@ -32,18 +32,18 @@ class Product(models.Model):
             super().save(*args, **kwargs)
 
 class Inventory(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inventory_products',to_field='product_code',default=0)
     stock = models.IntegerField(blank = True,default=0)
-    inventory_product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inventory_products',to_field='product_code',default=0)
     
-class Inbound(Product):
-    inbound_product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inbound_products',to_field='product_code',default=0)
+    
+class Inbound(models.Model):
+    product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inbound_products',to_field='product_code',default=0)
     inbound_quantity = models.IntegerField(blank = True, default=0)
     inbound_date = models.DateTimeField(auto_now_add=True)
 
 
-class Outbound(Product):
-    inbound_product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='outbound_products',to_field='product_code',default=0)
+class Outbound(models.Model):
+    product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='outbound_products',to_field='product_code',default=0)
     outbound_quantity = models.IntegerField(blank = True, default=0)
     outbound_date = models.DateTimeField(auto_now_add=True)
 

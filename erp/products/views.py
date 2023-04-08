@@ -27,7 +27,6 @@ def inventory_show(request):
             return redirect('/sign-in')
 
 
-
 @login_required
 def product_create(request):
     if request.method == 'POST':
