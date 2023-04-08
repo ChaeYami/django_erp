@@ -14,7 +14,7 @@ def home(request):
     else:
         return redirect('/sign-in')
     
-@login_required
+@login_required(login_url='/sign-in') # 로그인을 하지 않고 url을 통해 접속할 경우 리디렉션 
 def inventory_show(request):
     if request.method == 'GET':
         user = request.user.is_authenticated
@@ -26,7 +26,7 @@ def inventory_show(request):
             return redirect('/sign-in')
 
 
-@login_required
+@login_required(login_url='/sign-in') # 로그인을 하지 않고 url을 통해 접속할 경우 리디렉션
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -40,7 +40,7 @@ def product_create(request):
     return render(request, 'products/product_create.html', {'form': form})
 
 
-@login_required
+@login_required(login_url='/sign-in') # 로그인을 하지 않고 url을 통해 접속할 경우 리디렉션
 def inbound_create(request):
     if request.method == 'GET':
         user = request.user.is_authenticated
@@ -64,7 +64,7 @@ def inbound_create(request):
             return redirect('/inventory')
         
 
-@login_required
+@login_required(login_url='/sign-in') # 로그인을 하지 않고 url을 통해 접속할 경우 리디렉션
 def outbound_create(request):
     if request.method == 'GET':
         user = request.user.is_authenticated

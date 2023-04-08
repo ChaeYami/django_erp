@@ -18,14 +18,14 @@ def sign_up_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             password2 = form.cleaned_data.get('password2')
-            bio = form.cleaned_data.get('bio')
+            name = form.cleaned_data.get('name')
             if password != password2:
                 return render(request, 'user/signup.html', {'form': form, 'error': '비밀번호가 일치하지 않습니다.'})
             else:
                 user, created = get_user_model().objects.get_or_create(username=username)
                 if created:
                     user.set_password(password)
-                    user.bio = bio
+                    user.name = name
                     user.save()
                     return redirect('/sign-in')
                 else:

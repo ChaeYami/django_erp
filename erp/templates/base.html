@@ -28,6 +28,19 @@
         .timeline-container {
             margin-top : 25px
         }
+
+        .navbar {
+            background-color: #5e5e5e;
+            color: white;
+          }
+        
+          .navbar-brand:hover {
+            font-weight: bold;
+          }
+        
+          .navbar-brand:not(:last-child) {
+            margin-right: 20px;
+          }
     </style>
 </head>
 <body>
@@ -63,7 +76,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item" disabled>
                         <span class="nav-link">
-                            {{ user.username }} 님 반갑습니다!
+                            {{ user.name }} 님 반갑습니다!
                         </span>
                     </li>
                     <li class="nav-item">
