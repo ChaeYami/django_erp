@@ -13,7 +13,7 @@
                 <div class="form-group mt-2 mb-2">
                     <label for="product_code">상품 코드</label>
                     <select class="form-select" aria-label="Default select example" id="product_code" name="product_code">
-                        <option value="" disabled selected>선택하세요</option>
+                        <option value="" disabled="disabled" selected="selected">선택하세요</option>
                         {% for product in product_list %}
                             <option value="{{ product.product_code }}">{{ product.product_code }}</option>
                         {% endfor %}

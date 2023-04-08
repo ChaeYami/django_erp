@@ -3,6 +3,7 @@ from .models import Product, Inbound, Outbound
 from django.http import HttpResponse
 from django.contrib import auth  # 사용자 auth 기능(비밀번호 체크, 로그인 기능 해결)
 from django.contrib.auth.decorators import login_required
+from django.forms import ValidationError
 
 
 from .forms import  ProductForm
@@ -35,11 +36,10 @@ def product_create(request):
             form.save()
             product_list = Product.objects.all()
             return render(request, 'products/inventory.html', {'product_list': product_list})
-        else:
-            return render(request, 'products/product_create.html', {'form': form})
     else:
         form = ProductForm()
-        return render(request, 'products/product_create.html', {'form': form})
+        
+    return render(request, 'products/product_create.html', {'form': form})
 
 
 @login_required

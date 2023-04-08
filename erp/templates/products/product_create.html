@@ -1,50 +1,63 @@
 {% extends 'base.html' %}
 {% block title %}
-상품 등록
+    상품 등록
 {% endblock %}
 {% block content %}
-<div class="container">
-<div class="wrap">
-<h2 class="title-center"> 상품 등록 </h2>
-<form class="form-area" method="post" action="/productcreate/">
-{% csrf_token %}
-<div class="form-group mt-2 mb-2">
-<label for="product_code">상품 코드</label>
-<input type="text" class="form-control" id="product_code" name="product_code" required>
-</div>
-<div class="form-group mt-2 mb-2">
-<label for="product_name">상품 이름</label>
-<input type="text" class="form-control" id="product_name" name="product_name" required>
-</div>
-<div class="form-group mt-2 mb-2">
-<label for="product_size">상품 사이즈</label>
-<select class="form-select" aria-label="Default select example" id="product_size" name="product_size" required>
-<option selected disabled value="">상품 사이즈를 선택하세요</option>
-<option value="S">Small</option>
-<option value="M">Medium</option>
-<option value="L">Large</option>
-<option value="F">Free</option>
-</select>
-</div>
-<div class="form-group mt-2 mb-2">
-<label for="product_price">상품 가격</label>
-<input type="number" class="form-control" id="product_price" name="product_price" required>
-</div>
-<div class="form-group mt-2 mb-2">
-<label for="product_desc">상품 설명</label>
-<textarea class="form-control" id="product_desc" name="product_desc" rows="3" required></textarea>
+    <div class="container">
+        <div class="wrap">
+            <h2 class="title-center">
+                상품 등록
+            </h2>
+            <form class="form-area" method="post" action="/productcreate/">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group mt-2 mb-2">
+                    <label for="product_code">상품 코드</label>
+                    <input type="text" class="form-control" id="product_code" name="product_code" required="required">
+                </div>
 
-{% if error %}
-<div class="alert alert-danger" role="alert">
-{{ error }}
-</div>
-{% endif %}
-<hr>
-<div style="float: right">
-<button type="submit" class="btn btn-primary">등록하기</button>
-<a href="/login" class="btn btn-secondary">취소하기</a>
-</div>
-</form>
-</div>
-</div>
-{% endblock %}
+                <div class="form-group mt-2 mb-2">
+                    <label for="product_name">상품 이름</label>
+                    <input type="text" class="form-control" id="product_name" name="product_name" required="required">
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label for="product_size">상품 사이즈</label>
+                    <select class="form-select" aria-label="Default select example" id="product_size" name="product_size" required="required">
+                        <option selected="selected" disabled="disabled" value="">상품 사이즈를 선택하세요</option>
+                        <option value="S">Small</option>
+                        <option value="M">Medium</option>
+                        <option value="L">Large</option>
+                        <option value="F">Free</option>
+                    </select>
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label for="product_price">상품 가격</label>
+                    <input type="number" class="form-control" id="product_price" name="product_price" required="required">
+                </div>
+                <div class="form-group mt-2 mb-2">
+                    <label for="product_desc">상품 설명</label>
+                    <textarea class="form-control" id="product_desc" name="product_desc" rows="3" required="required"></textarea>
+
+                    {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+                    <hr>
+                    <div style="float: right">
+                        <button type="submit" class="btn btn-primary">등록하기</button>
+                        <a href="/" class="btn btn-secondary">취소하기</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endblock %}

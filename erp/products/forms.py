@@ -12,7 +12,7 @@ class ProductForm(forms.ModelForm):
         product_code = self.cleaned_data.get('product_code')
 
         if Product.objects.filter(product_code=product_code).exists():
-            raise forms.ValidationError("중복된 코드입니다.")
+            raise forms.ValidationError("중복된 상품 코드입니다.")
 
         return product_code
 
