@@ -13,7 +13,8 @@ def home(request):
         return render(request, 'products/home.html')
     else:
         return redirect('/sign-in')
-
+    
+@login_required
 def inventory_show(request):
     if request.method == 'GET':
         user = request.user.is_authenticated

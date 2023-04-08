@@ -9,7 +9,7 @@ class Product(models.Model):
     class Meta:
         db_table = "my_product"
 
-    product_code = models.CharField(max_length=10)
+    product_code = models.CharField(max_length=10, unique=True)
     product_name = models.CharField(max_length=15)
     product_sizes = (
         ('S', 'Small'),
@@ -34,7 +34,6 @@ class Product(models.Model):
 
 class Inventory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    product_code = models.CharField(max_length=10,default=0)
     quantity = models.IntegerField(default=0)
     
 class Inbound(Product):
