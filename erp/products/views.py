@@ -19,7 +19,7 @@ def inventory_show(request):
     if request.method == 'GET':
         user = request.user.is_authenticated
         if user:
-            product_list = Inventory.objects.all()
+            product_list = Inventory.objects.all().order_by('-updated_at')
         
             return render(request, 'products/inventory.html', {'product_list': product_list})
         else:
@@ -32,7 +32,7 @@ def product_create(request):
         form = ProductForm(request.POST)
         if form.is_valid():
             form.save()
-            product_list = Inventory.objects.all()
+            product_list = Inventory.objects.all().order_by('-updated_at')
             return render(request, 'products/inventory.html', {'product_list': product_list})
     else:
         form = ProductForm()
@@ -42,16 +42,19 @@ def product_create(request):
 
 @login_required(login_url='/sign-in') # 로그인을 하지 않고 url을 통해 접속할 경우 리디렉션
 def inbound_create(request):
+    
     if request.method == 'GET':
         user = request.user.is_authenticated
         if user:
-            product_list = Product.objects.all()
+            product_list = Inventory.objects.all().order_by('-updated_at')
             return render(request, 'products/inbound_create.html',{'product_list': product_list})
         else:
             return redirect('/sign-in')
+        
     elif request.method == 'POST':
         product_code = request.POST.get('product_code', '')
         inbound = request.POST.get('inbound', '')
+        
         if product_code == '' or inbound == '': # 입력된 값이 없을 때
             return render(request, 'products/inbound_create.html', {'error': '내용을 입력해주세요.'})
         else:
@@ -66,17 +69,20 @@ def inbound_create(request):
 
 @login_required(login_url='/sign-in') # 로그인을 하지 않고 url을 통해 접속할 경우 리디렉션
 def outbound_create(request):
+    
     if request.method == 'GET':
         user = request.user.is_authenticated
         if user:
             
-            product_list = Product.objects.all()
+            product_list = Inventory.objects.all().order_by('-updated_at')
             return render(request, 'products/outbound_create.html',{'product_list': product_list})
         else:
             return redirect('/sign-in')
+        
     elif request.method == 'POST':
         product_code = request.POST.get('product_code', '')
         outbound = request.POST.get('outbound', '')
+        
         if product_code == '' or outbound == '': # 입력된 값이 없을 때
             return render(request, 'products/outbound_create.html', {'error': '내용을 입력해주세요.'})
         else:

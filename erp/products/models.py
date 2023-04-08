@@ -22,7 +22,8 @@ class Product(models.Model):
     product_size = models.CharField(choices=product_sizes, max_length=2)
     product_price = models.CharField(max_length=10)
     product_desc = models.TextField()
-    stock = models.IntegerField(default=0)
+    created_at = models.DateField(auto_now_add=True)
+    
 
     
     def __str__(self):
@@ -49,6 +50,8 @@ class Inventory(models.Model):
     
     stock = models.IntegerField()
     product_code = models.CharField(max_length=10, unique=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateField(auto_now_add=True)
     
 class Inbound(models.Model):
     class Meta:
