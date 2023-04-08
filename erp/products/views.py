@@ -53,12 +53,12 @@ def inbound_create(request):
         product_code = request.POST.get('product_code', '')
         inbound = request.POST.get('inbound', '')
         if product_code == '' or inbound == '': # 입력된 값이 없을 때
-            return render(request, 'products/inbound_create.html', {'error': '내용을 입력해주세요'})
+            return render(request, 'products/inbound_create.html', {'error': '내용을 입력해주세요.'})
         else:
             
             inventory = Inventory.objects.get(product_code=product_code)
             
-            inventory.stock += inbound # 재고량 증가
+            inventory.stock += int(inbound) # 재고량 증가
             inventory.save()
             
             return redirect('/inventory')
@@ -78,12 +78,12 @@ def outbound_create(request):
         product_code = request.POST.get('product_code', '')
         outbound = request.POST.get('outbound', '')
         if product_code == '' or outbound == '': # 입력된 값이 없을 때
-            return render(request, 'products/outbound_create.html', {'error': '내용을 입력해주세요'})
+            return render(request, 'products/outbound_create.html', {'error': '내용을 입력해주세요.'})
         else:
             inventory = Inventory.objects.get(product_code=product_code)
             
-            if outbound > inventory.stock:  # 출고하려는 수량이 재고보다 많을 경우
-                return render(request, 'products/inventory.html', {'error': '출고량은 재고량보다 많을 수 없습니다.'})
+            if int(outbound) > inventory.stock:  # 출고하려는 수량이 재고보다 많을 경우
+                return render(request, 'products/outbound_create.html', {'error': '출고량은 재고량보다 많을 수 없습니다.'})
             
             inventory.stock -= int(outbound) # 재고량 감소
             inventory.save()
