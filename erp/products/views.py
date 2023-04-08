@@ -52,14 +52,18 @@ def inbound_create(request):
             return redirect('/sign-in')
     elif request.method == 'POST':
         product_code = request.POST.get('product_code', '')
-        inbound = request.POST.get('inbound', '')
+        inbound = int(request.POST.get('inbound', ''))
         if product_code == '' or inbound == '':
             return render(request, 'products/inventory.html', {'error': 'Please fill all the fields'})
         else:
-            product = Product.objects.get(product_code=product_code)
+            # product = Product.objects.get(product_code=product_code)
+            inventory = Inventory.objects.get(product_code=product_code)
+            print(type(Inventory.stock))
+            print(type(inbound))
+            Inventory.stock = Inventory.stock+inbound # 재고량 증가
+            inventory.save()
             
-            Inventory.stock += int(inbound) # 재고량 증가
-            product.save()
+            
             return redirect('/inventory')
         
 

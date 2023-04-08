@@ -27,13 +27,13 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:  # 생성시 id가 없음 -> 생성동작
             super().save(*args, **kwargs)
-            Inventory.objects.create(product=self, stock=0)
+            Inventory.objects.create(product_code=self, stock=0)
         else:
             super().save(*args, **kwargs)
 
 class Inventory(models.Model):
     product_code = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inventory_products',to_field='product_code',default=0)
-    stock = models.IntegerField(blank = True,default=0)
+    stock = models.IntegerField()
     
     
 class Inbound(models.Model):
