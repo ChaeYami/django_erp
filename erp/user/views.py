@@ -9,32 +9,25 @@ from django.contrib.auth import get_user_model #사용자가 있는지 검사하
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 
-from .forms import SignupForm
  
 def sign_up_view(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            password2 = form.cleaned_data.get('password2')
-            name = form.cleaned_data.get('name')
-            if password != password2:
-                return render(request, 'user/signup.html', {'form': form, 'error': '비밀번호가 일치하지 않습니다.'})
-            else:
-                user, created = get_user_model().objects.get_or_create(username=username)
-                if created:
-                    user.set_password(password)
-                    user.name = name
-                    user.save()
-                    return redirect('/sign-in')
-                else:
-                    return render(request, 'user/signup.html', {'form': form, 'error': '이미 존재하는 사용자입니다.'})
+    if request.method == 'GET':
+        return render(request, 'user/signup.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        password2 = request.POST.get('password2', None)
+        name = request.POST.get('name', None)
+
+        if password != password2:
+            return render(request, 'user/signup.html')
         else:
-            return render(request, 'user/signup.html', {'form': form})
-    else:
-        form = SignupForm()
-        return render(request, 'user/signup.html', {'form': form})
+            exist_user = get_user_model().objects.filter(username=username)
+            if exist_user:
+                return render(request, 'user/signup.html') # 사용자가 존재하기 때문에 사용자를 저장하지 않고 회원가입 페이지를 다시 띄움
+            else:
+                UserModel.objects.create_user(username=username, password=password, name=name)
+                return redirect('/sign-in') # 회원가입이 완료되었으므로 로그인 페이지로 이동
 
  
 def sign_in_view(request):

@@ -11,15 +11,15 @@
             <form class="form-area" method="post" action="{% url 'inbound-create' %}">
                 {% csrf_token %}
                 <div class="form-group mt-2 mb-2">
-                    <label for="product_code">상품 코드</label>
-                    <select class="form-select" aria-label="Default select example" id="product_code" name="product_code">
+                    <label for="product_index">상품 코드, 이름, 사이즈</label>
+                    <select class="form-select" aria-label="Default select example" id="product_index" name="product_index">
                         <option value="" disabled selected>선택하세요</option>
                         {% for product in product_list %}
-                            <option value="{{ product.product_code }}">{{ product.product_code }}</option>
+                            <option value="{{ product.product_index }}">{{ product.product.product_code }} | {{ product.product.product_name }} | {{ product.product.product_size }} (현재 재고량 : {{ product.stock }})</option>
                         {% endfor %}
                     </select>
-                    {% if errors.product_code %}
-                        <span class="text-danger">{{ errors.product_code }}</span>
+                    {% if errors.product_index %}
+                        <span class="text-danger">{{ errors.product_index }}</span>
                     {% endif %}
                 </div>
                 <div class="form-group mt-2 mb-2">

@@ -52,14 +52,14 @@ def inbound_create(request):
             return redirect('/sign-in')
         
     elif request.method == 'POST':
-        product_code = request.POST.get('product_code', '')
+        product_index = request.POST.get('product_index', '')
         inbound = request.POST.get('inbound', '')
         
-        if product_code == '' or inbound == '': # 입력된 값이 없을 때
+        if product_index == '' or inbound == '': # 입력된 값이 없을 때
             return render(request, 'products/inbound_create.html', {'error': '내용을 입력해주세요.'})
         else:
             
-            inventory = Inventory.objects.get(product_code=product_code)
+            inventory = Inventory.objects.get(product_index=product_index)
             
             inventory.stock += int(inbound) # 재고량 증가
             inventory.save()
@@ -80,13 +80,13 @@ def outbound_create(request):
             return redirect('/sign-in')
         
     elif request.method == 'POST':
-        product_code = request.POST.get('product_code', '')
+        product_index = request.POST.get('product_index', '')
         outbound = request.POST.get('outbound', '')
         
-        if product_code == '' or outbound == '': # 입력된 값이 없을 때
+        if product_index == '' or outbound == '': # 입력된 값이 없을 때
             return render(request, 'products/outbound_create.html', {'error': '내용을 입력해주세요.'})
         else:
-            inventory = Inventory.objects.get(product_code=product_code)
+            inventory = Inventory.objects.get(product_index=product_index)
             
             if int(outbound) > inventory.stock:  # 출고하려는 수량이 재고보다 많을 경우
                 return render(request, 'products/outbound_create.html', {'error': '출고량은 재고량보다 많을 수 없습니다.'})

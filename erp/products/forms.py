@@ -8,12 +8,12 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ('product_code', 'product_name', 'product_size', 'product_price', 'product_desc')
 
-    def clean_product_code(self):
-        product_code = self.cleaned_data.get('product_code')
+    # def clean_product_code(self):
+    #     product_code = self.cleaned_data.get('product_code')
 
-        if Product.objects.filter(product_code=product_code).exists():
-            raise forms.ValidationError("중복된 상품 코드입니다.")
+    #     if Product.objects.filter(product_code=product_code).exists():
+    #         raise forms.ValidationError("중복된 상품 코드입니다.")
 
-        return product_code
+    #     return product_code
 
 

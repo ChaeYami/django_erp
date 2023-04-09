@@ -21,8 +21,16 @@
                     </div>
                 {% endif %}
                 <div class="form-group mt-2 mb-2">
-                    <label for="product_code">상품 코드</label>
-                    <input type="number" class="form-control" id="product_code" name="product_code" required="required">
+                    <label for="product_size">상품 코드</label>
+                    <select class="form-select" aria-label="Default select example" id="product_code" name="product_code" required="required">
+                        <option selected="selected" disabled="disabled" value="">상품 코드 선택</option>
+                        <option value="hood-001">hood-001</option>                        
+                        <option value="hood-002">hood-002</option>
+                        <option value="hood-003">hood-003</option>
+                        <option value="jean-001">jean-001</option>
+                        <option value="socks-001">socks-001</option>                       
+                        <option value="hat-001">hat-001</option>
+                    </select>
                 </div>
 
                 <div class="form-group mt-2 mb-2">
