@@ -10,6 +10,7 @@
             <h2 class="title-center"> 입고 </h2>
             <form class="form-area" method="post" action="{% url 'inbound-create' %}">
                 {% csrf_token %}
+                
                 <div class="form-group mt-2 mb-2">
                     <label for="product_index">상품 코드, 이름, 사이즈</label>
                     <select class="form-select" aria-label="Default select example" id="product_index" name="product_index">

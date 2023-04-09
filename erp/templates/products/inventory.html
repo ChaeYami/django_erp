@@ -23,8 +23,8 @@
           <th scope="col">사이즈</th>
           <th scope="col">가격</th>
           <th scope="col">설명</th>
-          <th scope="col">입고 날짜</th>
-          <th scope="col">출고 날짜</th>
+          {% comment %} <th scope="col">입고 날짜</th>
+          <th scope="col">출고 날짜</th> {% endcomment %}
           <th scope="col">재고량</th>
         </tr>
       </thead>
@@ -37,8 +37,8 @@
           <td>{{ cat.product.product_size }}</td>
           <td>{{ cat.product.product_price|intcomma }}</td>
           <td>{{ cat.product.product_desc }}</td>
-          <td>{{ cat.product.inbound_date }}</td>
-          <td>{{ cat.product.outbound_date }}</td>
+          {% comment %} <td>{{ cat.product.inbound_date }}</td>
+          <td>{{ cat.product.outbound_date }}</td> {% endcomment %}
           <td>{{ cat.stock|intcomma }}</td>
         </tr>
         {% endfor %}
