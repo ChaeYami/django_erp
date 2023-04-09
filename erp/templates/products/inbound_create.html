@@ -18,9 +18,7 @@
                             <option value="{{ product.product_index }}">{{ product.product.product_code }} | {{ product.product.product_name }} | {{ product.product.product_size }} (현재 재고량 : {{ product.stock }})</option>
                         {% endfor %}
                     </select>
-                    {% if errors.product_index %}
-                        <span class="text-danger">{{ errors.product_index }}</span>
-                    {% endif %}
+                    
                 </div>
                 <div class="form-group mt-2 mb-2">
                     <label for="inbound">수량</label>
