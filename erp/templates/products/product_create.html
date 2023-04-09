@@ -20,7 +20,16 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-                <div class="form-group mt-2 mb-2">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div style="float: right">
+                        <button type="submit" class="btn btn-primary">등록하기</button>
+                        <a href="/" class="btn btn-secondary">취소하기</a>
+                    </div>
+                  </form>
+
+                {% comment %} <div class="form-group mt-2 mb-2">
                     <label for="product_size">상품 코드</label>
                     <select class="form-select" aria-label="Default select example" id="product_code" name="product_code" required="required">
                         <option selected="selected" disabled="disabled" value="">상품 코드 선택</option>
@@ -67,7 +76,7 @@
                     <div style="float: right">
                         <button type="submit" class="btn btn-primary">등록하기</button>
                         <a href="/" class="btn btn-secondary">취소하기</a>
-                    </div>
+                    </div> {% endcomment %}
                 </form>
             </div>
         </div>
