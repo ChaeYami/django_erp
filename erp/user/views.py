@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth # 사용자 auth 기능
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, SignInForm
 from django.contrib.auth.hashers import make_password
  
 def sign_up_view(request):
@@ -21,7 +21,7 @@ def sign_up_view(request):
 
 def sign_in_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = SignInForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -30,9 +30,9 @@ def sign_in_view(request):
                 auth.login(request, me)
                 return redirect('home')
         else:
-            form = LoginForm()
+            form = SignInForm()
     else:
-        form = LoginForm()
+        form = SignInForm()
         
     return render(request, 'user/signin.html', {'form': form})
 
